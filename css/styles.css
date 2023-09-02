@@ -15,11 +15,20 @@ body {
   align-items: center;
   justify-content: center;
 }
-.singUp-container {
+#singUp-container {
   width: 375px;
   height: 812px;
   margin: 10px 0;
   background-color: #feabae;
+  border-radius: 40px;
+  display: none;
+}
+
+#signIn-container {
+  width: 375px;
+  height: 812px;
+  margin: 10px 0;
+  background-color: #ffffff;
   border-radius: 40px;
 }
 .ellipse-wrapper {
@@ -30,8 +39,29 @@ body {
 }
 .ellipse-1 img {
   border-radius: 40px 40px 0 0;
+  position: relative;
+  z-index: 1;
+}
+.ellipse-4 img {
+  border-radius: 40px 40px 0 0;
+  position: absolute;
+  top: 18px;
+  left: 572px;
+  z-index: 1;
+}
+.ellipse-5 img {
+  position: relative;
+  top: -260px;
 }
 .create h1 {
+  color: #fff;
+  font-family: mySansBold, sans-serif;
+  font-size: 46px;
+  font-style: normal;
+  font-weight: 900;
+  line-height: normal;
+}
+.welcome h1 {
   color: #fff;
   font-family: mySansBold, sans-serif;
   font-size: 46px;
@@ -42,15 +72,25 @@ body {
 .create {
   position: relative;
   left: -160px;
-  top: -180px;
+  top: -205px;
+  z-index: 1;
+}
+.welcome {
+  position: relative;
+  left: -140px;
+  top: -600px;
+  z-index: 1;
 }
 .ellipse-2 img {
   position: relative;
   top: -90px;
   border-radius: 0 0 40px 0;
 }
+.form_container {
+  margin-top: -485px;
+}
 .form-container {
-  margin-top: -132px;
+  margin-top: -157px;
 }
 .input input {
   width: 303px;
@@ -68,8 +108,12 @@ body {
   line-height: normal;
   text-indent: 20px;
 }
-input:focus-visible {
-  border-color: #86b7fe;
+.value {
+  background: #0000001a;
+  color: #3c3c3c !important;
+}
+.value::placeholder {
+  color: #3c3c3c;
 }
 ::placeholder {
   color: #fff;
@@ -89,10 +133,23 @@ input:focus-visible {
   margin-left: 40px;
   margin-top: 50px;
 }
-svg {
+.btnSingUp svg {
   width: 24px;
   height: 16px;
   flex-shrink: 0;
+}
+#arrow-back svg {
+  width: 10px;
+  height: 20.014px;
+  flex-shrink: 0;
+  z-index: 1;
+  position: relative;
+  top: -250px;
+  left: -320px;
+  cursor: pointer;
+}
+.arrow-back svg {
+  top: -645px !important;
 }
 button {
   width: 64px;
@@ -104,20 +161,26 @@ button {
   margin-top: 29px;
   cursor: pointer;
 }
-.form-end {
+.flex {
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  left: 5px !important;
+}
+.form-last {
   display: flex;
   align-items: center;
   justify-content: space-between;
   position: relative;
   z-index: 1;
 }
-#signIn {
+#change {
   position: relative;
   z-index: 1;
   left: 276px;
   top: 85px;
 }
-#signIn a {
+#change a {
   color: #000;
   font-family: mySansBold, sans-serif;
   font-size: 18px;
@@ -136,4 +199,21 @@ button {
   z-index: 1;
   top: -8px;
   left: -10px;
+}
+.line-forgot {
+  width: 159px;
+  height: 9px;
+  background: #fd969c;
+  position: relative;
+  z-index: 1;
+  top: -8px;
+  left: -10px;
+}
+.text-danger {
+  color: #ffffff;
+  font-family: mySansMedium, sans-serif;
+  margin-left: 50px;
+}
+#username {
+  border-color: #ff000d;
 }

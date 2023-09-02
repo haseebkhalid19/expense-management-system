@@ -1,15 +1,15 @@
+const username = document.getElementById("username").value;
+const email = document.getElementById("email").value;
+const pass = document.getElementById("password").value;
+var myAlert = document.querySelector(".text-danger");
 function signUp() {
-  const username = document.getElementById("username").value;
-  const email = document.getElementById("email").value;
-  const pass = document.getElementById("password").value;
-  var myAlert = document.querySelector(".text-danger");
-
   //   console.log("testing");
 
   //validate
   if (!username) {
     myAlert.innerHTML = "Username feild name can't be empty";
     myAlert.style.display = "block";
+    username.style.borderColor = "#ff000d";
   } else if (!email) {
     myAlert.innerHTML = "Email feild name can't be empty";
     myAlert.style.display = "block";
@@ -31,3 +31,10 @@ function signUp() {
     cPass = "";
   }
 }
+
+const change = document.getElementById("change");
+const showSingUp = document.getElementById("singUp-container");
+
+change.addEventListener("click", () => {
+  showSingUp.style.display = "none";
+});
