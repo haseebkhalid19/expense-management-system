@@ -45,25 +45,28 @@
               <div class="input">
                 <input
                   class="value"
-                  id="username"
-                  type="text"
-                  placeholder="Name"
+                  id="useremail"
+                  type="email"
+                  placeholder="Your Eamil"
                   name="username"
+                  data-error="email-error"
                 />
-                <div class="text-danger"></div>
+                <div class="text-danger" id="email-error"></div>
               </div>
               <div class="input">
                 <input
                   class="value"
-                  id="password"
+                  id="user-password"
                   type="password"
                   placeholder="Password"
                   name="password"
+                  data-error="password-error"
                 />
+                <div class="text-danger" id="password-error"></div>
               </div>
               <div class="form-last">
                 <div class="text">Sign In</div>
-                <button type="button" class="btnSingUp" onclick="signUp()">
+                <button type="button" class="btnSingUp" onclick="signIn()">
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
                     width="24"
@@ -78,10 +81,10 @@
                   </svg>
                 </button>
               </div>
-              <div id="change" class="flex">
-                <div>
+              <div class="flex">
+                <div id="change">
                   <a href="javascript:void(0);"> SignUp </a>
-                  <div class="line"></div>
+                  <div class="line-s"></div>
                 </div>
                 <div>
                   <a href="javascript:void(0);"> Forgot Password </a>
@@ -92,7 +95,7 @@
           </div>
         </div>
       </div>
-      <div id="singUp-container">
+      <div id="singUp-container" class="d-none">
         <div class="ellipse-wrapper">
           <div class="ellipse-1">
             <img src="img/Ellipse_1.png" alt="image" />
@@ -125,8 +128,9 @@
                   type="text"
                   placeholder="Name"
                   name="username"
+                  data-error="username-error"
                 />
-                <div class="text-danger"></div>
+                <div class="text-danger" id="username-error"></div>
               </div>
               <div class="input">
                 <input
@@ -134,7 +138,9 @@
                   type="email"
                   placeholder="Your Email"
                   name="email"
+                  data-error="register-error"
                 />
+                <div class="text-danger" id="register-error"></div>
               </div>
               <div class="input">
                 <input
@@ -142,8 +148,10 @@
                   type="password"
                   placeholder="Password"
                   name="password"
+                  data-error="register-password-error"
                 />
               </div>
+              <div class="text-danger" id="register-password-error"></div>
               <div class="form-last">
                 <div class="text">Sign Up</div>
                 <button type="button" class="btnSingUp" onclick="signUp()">
@@ -162,8 +170,10 @@
                 </button>
               </div>
               <div id="signIn">
-                <a href="javascript:void(0);"> SignIn </a>
-                <div class="line"></div>
+                <div id="change-s">
+                  <a href="javascript:void(0);"> SignIn </a>
+                  <div class="line"></div>
+                </div>
               </div>
             </form>
           </div>

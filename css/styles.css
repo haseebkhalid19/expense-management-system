@@ -3,7 +3,7 @@ body {
   overflow-x: hidden;
 }
 @font-face {
-  font-family: mySansBold;
+  font-family: mySansHeavy;
   src: url(../FUTURAB.TTF);
 }
 @font-face {
@@ -21,6 +21,9 @@ body {
   margin: 10px 0;
   background-color: #feabae;
   border-radius: 40px;
+}
+
+.d-none {
   display: none;
 }
 
@@ -30,6 +33,19 @@ body {
   margin: 10px 0;
   background-color: #ffffff;
   border-radius: 40px;
+}
+#signIn a {
+  color: #000;
+  font-family: mySansHeavy, sans-serif;
+  font-size: 18px;
+  font-style: normal;
+  font-weight: 900;
+  line-height: normal;
+  position: relative;
+  z-index: 2;
+  left: 270px;
+  top: 80px;
+  text-decoration: none;
 }
 .ellipse-wrapper {
   display: flex;
@@ -55,7 +71,7 @@ body {
 }
 .create h1 {
   color: #fff;
-  font-family: mySansBold, sans-serif;
+  font-family: mySansHeavy, sans-serif;
   font-size: 46px;
   font-style: normal;
   font-weight: 900;
@@ -63,7 +79,7 @@ body {
 }
 .welcome h1 {
   color: #fff;
-  font-family: mySansBold, sans-serif;
+  font-family: mySansHeavy, sans-serif;
   font-size: 46px;
   font-style: normal;
   font-weight: 900;
@@ -83,7 +99,7 @@ body {
 }
 .ellipse-2 img {
   position: relative;
-  top: -90px;
+  top: -99px;
   border-radius: 0 0 40px 0;
 }
 .form_container {
@@ -98,7 +114,7 @@ body {
   flex-shrink: 0;
   border-radius: 20px;
   background: rgba(0, 0, 0, 0.2);
-  border: none;
+  border: 2px solid;
   margin: 5px 35px;
   color: #fff;
   font-family: mySansMedium, sans-serif;
@@ -125,13 +141,13 @@ body {
 }
 .text {
   color: #000;
-  font-family: mySansBold, sans-serif;
+  font-family: mySansHeavy, sans-serif;
   font-size: 32px;
   font-style: normal;
   font-weight: 900;
   line-height: normal;
   margin-left: 40px;
-  margin-top: 50px;
+  margin-top: 25px;
 }
 .btnSingUp svg {
   width: 24px;
@@ -144,7 +160,7 @@ body {
   flex-shrink: 0;
   z-index: 1;
   position: relative;
-  top: -250px;
+  top: -255px;
   left: -320px;
   cursor: pointer;
 }
@@ -157,11 +173,15 @@ button {
   border-radius: 50%;
   background-color: #8a4c7d;
   border: none;
-  margin-right: 45px;
+  margin-right: 70px;
   margin-top: 29px;
   cursor: pointer;
 }
 .flex {
+  position: relative;
+  z-index: 1;
+  left: 276px;
+  top: 85px;
   display: flex;
   align-items: center;
   justify-content: space-around;
@@ -174,15 +194,9 @@ button {
   position: relative;
   z-index: 1;
 }
-#change {
-  position: relative;
-  z-index: 1;
-  left: 276px;
-  top: 85px;
-}
-#change a {
+.flex a {
   color: #000;
-  font-family: mySansBold, sans-serif;
+  font-family: mySansHeavy, sans-serif;
   font-size: 18px;
   font-style: normal;
   font-weight: 900;
@@ -197,8 +211,17 @@ button {
   background: #e4db7c;
   position: relative;
   z-index: 1;
+  top: 72px;
+  left: 260px;
+}
+.line-s {
+  width: 78px;
+  height: 9px;
+  background: #e4db7c;
+  position: relative;
+  z-index: 1;
   top: -8px;
-  left: -10px;
+  left: -7px;
 }
 .line-forgot {
   width: 159px;
@@ -210,10 +233,7 @@ button {
   left: -10px;
 }
 .text-danger {
-  color: #ffffff;
+  color: #ff0000;
   font-family: mySansMedium, sans-serif;
   margin-left: 50px;
-}
-#username {
-  border-color: #ff000d;
 }
