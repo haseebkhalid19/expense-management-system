@@ -1,3 +1,4 @@
+let userData = [];
 const change = document.getElementById("change");
 const changeS = document.getElementById("change-s");
 const showSingIn = document.getElementById("signIn-container");
@@ -12,48 +13,6 @@ changeS.addEventListener("click", () => {
   showSingIn.classList.toggle("d-none");
   showSingUp.classList.toggle("d-none");
 });
-
-function signIn() {
-  var userEmail = document.getElementById("useremail");
-  var uPass = document.getElementById("user-password");
-
-  // Hide all error messages
-  var errorMessages = document.querySelectorAll(".text-danger");
-  errorMessages.forEach(function (error) {
-    error.style.display = "none";
-  });
-
-  
-  userEmail.style.borderColor = "#000";
-  uPass.style.borderColor = "#000";
-
-  // Validate email
-  if (!userEmail.value) {
-    var emailError = document.getElementById(
-      userEmail.getAttribute("data-error")
-    );
-    emailError.style.display = "block";
-    emailError.textContent = "Please type your email";
-    userEmail.style.borderColor = "#ff0000";
-  } else if (!userEmail.value.includes("@")) {
-    var emailError = document.getElementById(
-      userEmail.getAttribute("data-error")
-    );
-    emailError.style.display = "block";
-    emailError.textContent = "Please include an @ in the email";
-    userEmail.style.borderColor = "#ff0000";
-  }
-
-  // Validate password
-  if (!uPass.value) {
-    var passwordError = document.getElementById(
-      uPass.getAttribute("data-error")
-    );
-    passwordError.style.display = "block";
-    passwordError.textContent = "Please enter your password";
-    uPass.style.borderColor = "#ff0000";
-  }
-}
 
 function signUp() {
   var username = document.getElementById("username");
@@ -105,5 +64,67 @@ function signUp() {
     registerPasswordError.style.display = "block";
     registerPasswordError.textContent = "Please enter a password";
     pass.style.borderColor = "#ff0000";
+  }
+  if (username.value && email.value && pass.value) {
+    userData.push({
+      username: username.value,
+      email: email.value,
+      password: pass.value,
+    });
+    username.value = "";
+    email.value = "";
+    pass.value = "";
+    console.log(userData);
+  }
+}
+
+function signIn() {
+  var userEmail = document.getElementById("useremail");
+  var uPass = document.getElementById("user-password");
+
+  // Hide all error messages
+  var errorMessages = document.querySelectorAll(".text-danger");
+  errorMessages.forEach(function (error) {
+    error.style.display = "none";
+  });
+
+  userEmail.style.borderColor = "#000";
+  uPass.style.borderColor = "#000";
+
+  // Validate email
+  if (!userEmail.value) {
+    var emailError = document.getElementById(
+      userEmail.getAttribute("data-error")
+    );
+    emailError.style.display = "block";
+    emailError.textContent = "Please type your email";
+    userEmail.style.borderColor = "#ff0000";
+  } else if (!userEmail.value.includes("@")) {
+    var emailError = document.getElementById(
+      userEmail.getAttribute("data-error")
+    );
+    emailError.style.display = "block";
+    emailError.textContent = "Please include an @ in the email";
+    userEmail.style.borderColor = "#ff0000";
+  }
+
+  // Validate password
+  if (!uPass.value) {
+    var passwordError = document.getElementById(
+      uPass.getAttribute("data-error")
+    );
+    passwordError.style.display = "block";
+    passwordError.textContent = "Please enter your password";
+    uPass.style.borderColor = "#ff0000";
+  }
+  if (userEmail.value && uPass.value) {
+    const foundUser = userData.find((user) => user.email === userEmail.value);
+    if (foundUser) {
+      // User with matching email found, you can now access foundUser
+      console.log("User found:", foundUser);
+    } else {
+      // User with matching email not found
+      console.log("User not found");
+    }
   }
 }
