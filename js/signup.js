@@ -79,12 +79,8 @@ function signUp() {
     username.value = "";
     email.value = "";
     pass.value = "";
-
-    // Swal.fire({
-    //   icon: "success",
-    //   title: "Account Created You can login now",
-    //   showConfirmButton: true,
-    // });
+    
+    window.location.href = "dashboard.html";
   }
 }
 
