@@ -1,4 +1,5 @@
 let userData = [];
+
 const change = document.getElementById("change");
 const changeS = document.getElementById("change-s");
 const showSingIn = document.getElementById("signIn-container");
@@ -66,15 +67,14 @@ function signUp() {
     pass.style.borderColor = "#ff0000";
   }
   if (username.value && email.value && pass.value) {
-    userData.push({
+    const newUser = {
       username: username.value,
       email: email.value,
       password: pass.value,
-    });
-    username.value = "";
-    email.value = "";
-    pass.value = "";
-    console.log(userData);
+    };
+
+    userData.push(newUser);
+    localStorage.setItem("userData", JSON.stringify(userData));
   }
 }
 
@@ -118,13 +118,22 @@ function signIn() {
     uPass.style.borderColor = "#ff0000";
   }
   if (userEmail.value && uPass.value) {
-    const foundUser = userData.find((user) => user.email === userEmail.value);
-    if (foundUser) {
-      // User with matching email found, you can now access foundUser
-      console.log("User found:", foundUser);
-    } else {
-      // User with matching email not found
-      console.log("User not found");
+    const userDataString = localStorage.getItem("userData");
+    if (userDataString) {
+      const userData = JSON.parse(userDataString);
+      // const userEmail = userData.email;
+      const foundUser = userData.find((user) => user.email === userEmail.value);
+      if (foundUser) {
+        // User with matching email found, you can now access foundUser
+        console.log("User found:", foundUser);
+        window.location.href = "dashboard.html";
+      } else {
+        Swal.fire({
+          icon: "error",
+          title: "Wrong Credentials",
+          showConfirmButton: true,
+        });
+      }
     }
   }
 }

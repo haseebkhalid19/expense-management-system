@@ -4,11 +4,11 @@ body {
 }
 @font-face {
   font-family: mySansHeavy;
-  src: url(../FUTURAB.TTF);
+  src: url(../fonts/FUTURAB.TTF);
 }
 @font-face {
   font-family: mySansMedium;
-  src: url(../FUTURAM.TTF);
+  src: url(../fonts/FUTURAM.TTF);
 }
 .screens-wrapper {
   display: flex;
@@ -60,14 +60,14 @@ body {
 }
 .ellipse-4 img {
   border-radius: 40px 40px 0 0;
-  position: absolute;
-  top: 18px;
-  left: 572px;
+  position: relative;
+  top: -292px;
+  left: -140px;
   z-index: 1;
 }
 .ellipse-5 img {
   position: relative;
-  top: -260px;
+  top: -373px;
 }
 .create h1 {
   color: #fff;
@@ -94,7 +94,7 @@ body {
 .welcome {
   position: relative;
   left: -140px;
-  top: -600px;
+  top: -705px;
   z-index: 1;
 }
 .ellipse-2 img {
@@ -103,7 +103,7 @@ body {
   border-radius: 0 0 40px 0;
 }
 .form_container {
-  margin-top: -485px;
+  margin-top: -590px;
 }
 .form-container {
   margin-top: -157px;
@@ -160,12 +160,12 @@ body {
   flex-shrink: 0;
   z-index: 1;
   position: relative;
-  top: -255px;
+  top: -250px;
   left: -320px;
   cursor: pointer;
 }
 .arrow-back svg {
-  top: -645px !important;
+  top: -750px !important;
 }
 button {
   width: 64px;
