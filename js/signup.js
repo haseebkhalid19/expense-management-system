@@ -1,4 +1,4 @@
-let userData = [];
+let userData = JSON.parse(localStorage.getItem('userData')) || [];
 
 const change = document.getElementById("change");
 const changeS = document.getElementById("change-s");
@@ -75,6 +75,16 @@ function signUp() {
 
     userData.push(newUser);
     localStorage.setItem("userData", JSON.stringify(userData));
+
+    username.value = "";
+    email.value = "";
+    pass.value = "";
+
+    // Swal.fire({
+    //   icon: "success",
+    //   title: "Account Created You can login now",
+    //   showConfirmButton: true,
+    // });
   }
 }
 
@@ -117,7 +127,7 @@ function signIn() {
     passwordError.textContent = "Please enter your password";
     uPass.style.borderColor = "#ff0000";
   }
-  if (userEmail.value && uPass.value) {
+  if (userEmail.value && uPass.value && userEmail.value.includes("@")) {
     const userDataString = localStorage.getItem("userData");
     if (userDataString) {
       const userData = JSON.parse(userDataString);
