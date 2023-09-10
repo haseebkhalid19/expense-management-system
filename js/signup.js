@@ -1,4 +1,4 @@
-let userData = JSON.parse(localStorage.getItem('userData')) || [];
+let userData = [];
 
 const change = document.getElementById("change");
 const changeS = document.getElementById("change-s");
@@ -66,12 +66,12 @@ function signUp() {
     registerPasswordError.textContent = "Please enter a password";
     pass.style.borderColor = "#ff0000";
   }
-  else if (pass.value.length < 8) {
+  else if (!pass.value.length < 8) {
     var registerPasswordError = document.getElementById(
       pass.getAttribute("data-error")
     );
     registerPasswordError.style.display = "block";
-    registerPasswordError.textContent = "Password should be of 8 Characters";
+    registerPasswordError.textContent = "Password must be of 8 char";
     pass.style.borderColor = "#ff0000";
   }
   if (username.value && email.value && pass.value) {
@@ -136,7 +136,7 @@ function signIn() {
     if (userDataString) {
       const userData = JSON.parse(userDataString);
       // const userEmail = userData.email;
-      const foundUser = userData.find((user) => user.email === userEmail.value);
+      const foundUser = userData.find((user) => user.email === userEmail && user.password === uPass);
       if (foundUser) {
         // User with matching email found, you can now access foundUser
         console.log("User found:", foundUser);
