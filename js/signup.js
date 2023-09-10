@@ -65,8 +65,7 @@ function signUp() {
     registerPasswordError.style.display = "block";
     registerPasswordError.textContent = "Please enter a password";
     pass.style.borderColor = "#ff0000";
-  }
-  else if (!pass.value.length < 8) {
+  } else if (!pass.value.length < 8) {
     var registerPasswordError = document.getElementById(
       pass.getAttribute("data-error")
     );
@@ -87,7 +86,7 @@ function signUp() {
     username.value = "";
     email.value = "";
     pass.value = "";
-    
+
     window.location.href = "dashboard.html";
   }
 }
@@ -135,10 +134,16 @@ function signIn() {
     const userDataString = localStorage.getItem("userData");
     if (userDataString) {
       const userData = JSON.parse(userDataString);
-      // const userEmail = userData.email;
-      const foundUser = userData.find((user) => user.email === userEmail && user.password === uPass);
+      const userEmail = document.getElementById("useremail").value; // Get the email input value
+      const uPass = document.getElementById("user-password").value; // Get the password input value
+
+      // Check if the email and password match a user in the userData array
+      const foundUser = userData.find(
+        (user) => user.email === userEmail && user.password === uPass
+      );
+
       if (foundUser) {
-        // User with matching email found, you can now access foundUser
+        // User with matching email and password found, you can now access foundUser
         console.log("User found:", foundUser);
         window.location.href = "dashboard.html";
       } else {
