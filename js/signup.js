@@ -65,13 +65,6 @@ function signUp() {
     registerPasswordError.style.display = "block";
     registerPasswordError.textContent = "Please enter a password";
     pass.style.borderColor = "#ff0000";
-  } else if (!pass.value.length < 8) {
-    var registerPasswordError = document.getElementById(
-      pass.getAttribute("data-error")
-    );
-    registerPasswordError.style.display = "block";
-    registerPasswordError.textContent = "Password must be of 8 char";
-    pass.style.borderColor = "#ff0000";
   }
   if (username.value && email.value && pass.value) {
     const newUser = {
