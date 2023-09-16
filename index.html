@@ -6,7 +6,7 @@
     <link rel="shortcut icon" href="img/favicon.ico" type="image/x-icon">
     <link rel="stylesheet" href="css/styles.css" />
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-    <script src="js/signup.js" defer></script>
+    <script src="js/app.js" defer></script>
     <title>Login Or SignUp</title>
   </head>
   <body>
@@ -43,7 +43,7 @@
             </h1>
           </div>
           <div class="form_container">
-            <form action="">
+            <form>
               <div class="input">
                 <input
                   class="value"
@@ -68,7 +68,7 @@
               </div>
               <div class="form-last">
                 <div class="text">Sign In</div>
-                <button type="button" class="btnSingUp" onclick="signIn()">
+                <button class="btnSingUp" onclick="signIn(event)">
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
                     width="24"
@@ -156,7 +156,7 @@
               <div class="text-danger" id="register-password-error"></div>
               <div class="form-last">
                 <div class="text">Sign Up</div>
-                <button type="button" class="btnSingUp" onclick="signUp()">
+                <button class="btnSingUp" onclick="signUp(event)">
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
                     width="24"

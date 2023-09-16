@@ -3,17 +3,62 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="shortcut icon" href="img/favicon.ico" type="image/x-icon" />
+    <link rel="stylesheet" href="css/styles.css" />
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-    <title>Dashboard</title>
+    <script src="js/app.js"></script>
+    <title>To Do App</title>
   </head>
   <body>
-    <h1>Dashboard</h1>
+    <div class="circle"></div>
+    <header>
+      <div class="user-avatar"></div>
+      <h1 id="welcome">Welcome <span id="user"></span></h1>
+    </header>
+
+    <section id="to-do">
+      <form>
+        <div class="input">
+          <input
+            class="value"
+            id="todo"
+            type="text"
+            placeholder="What do you need to do?"
+            name="toDo"
+            data-error="todo-error"
+          />
+          <button class="add-todo" onclick="addToDo(event)">
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="24"
+              height="16"
+              viewBox="0 0 24 16"
+              fill="none"
+            >
+              <path
+                d="M23.8535 7.64649L16.3535 0.146496C16.1582 -0.048832 15.8418 -0.048832 15.6465 0.146496C15.4512 0.341824 15.4512 0.65823 15.6465 0.853511L22.293 7.50001H0.500015C0.22364 7.50001 0 7.72365 0 8.00002C0 8.2764 0.22364 8.50004 0.500015 8.50004H22.293L15.6465 15.1465C15.4512 15.3418 15.4512 15.6582 15.6465 15.8535C15.7441 15.9511 15.8721 16 16 16C16.1279 16 16.2559 15.9511 16.3536 15.8535L23.8535 8.35351C24.0488 8.15822 24.0488 7.84182 23.8535 7.64649Z"
+                fill="white"
+              />
+            </svg>
+          </button>
+          <div class="text-danger" id="todo-error"></div>
+        </div>
+      </form>
+    </section>
+
+    <section id="todo-wrapper">
+      <div class="todo-list">
+        <div id="todo-item">
+          
+        </div>
+      </div>
+    </section>
   </body>
-  <script>
+  <!-- <script>
     Swal.fire({
       icon: "success",
-      title: "Welcome to Dashboard",
+      title: "Welcome to Dashboard", 
       showConfirmButton: true,
     });
-  </script>
+  </script> -->
 </html>

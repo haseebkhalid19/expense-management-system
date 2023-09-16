@@ -1,4 +1,5 @@
-let userData = [];
+let userData = JSON.parse(localStorage.getItem("userData")) || [];
+let toDoData = JSON.parse(localStorage.getItem("toDoData")) || [];
 
 const change = document.getElementById("change");
 const changeS = document.getElementById("change-s");
@@ -15,7 +16,8 @@ changeS.addEventListener("click", () => {
   showSingUp.classList.toggle("d-none");
 });
 
-function signUp() {
+function signUp(event) {
+  event.preventDefault();
   var username = document.getElementById("username");
   var email = document.getElementById("email");
   var pass = document.getElementById("password");
@@ -66,8 +68,16 @@ function signUp() {
     registerPasswordError.textContent = "Please enter a password";
     pass.style.borderColor = "#ff0000";
   }
+
+  //sign up
   if (username.value && email.value && pass.value) {
+    let lastUserId = 1000;
+    if (userData.length > 0) {
+      lastUserId = userData[userData.length - 1].userId;
+    }
+    let userId = lastUserId + 1;
     const newUser = {
+      userId: userId,
       username: username.value,
       email: email.value,
       password: pass.value,
@@ -76,15 +86,12 @@ function signUp() {
     userData.push(newUser);
     localStorage.setItem("userData", JSON.stringify(userData));
 
-    username.value = "";
-    email.value = "";
-    pass.value = "";
-
     window.location.href = "dashboard.html";
   }
 }
 
-function signIn() {
+function signIn(event) {
+  event.preventDefault();
   var userEmail = document.getElementById("useremail");
   var uPass = document.getElementById("user-password");
 
@@ -123,21 +130,21 @@ function signIn() {
     passwordError.textContent = "Please enter your password";
     uPass.style.borderColor = "#ff0000";
   }
+
   if (userEmail.value && uPass.value && userEmail.value.includes("@")) {
     const userDataString = localStorage.getItem("userData");
     if (userDataString) {
       const userData = JSON.parse(userDataString);
-      const userEmail = document.getElementById("useremail").value; // Get the email input value
-      const uPass = document.getElementById("user-password").value; // Get the password input value
+      const userEmail = document.getElementById("useremail").value;
+      const uPass = document.getElementById("user-password").value;
 
-      // Check if the email and password match a user in the userData array
       const foundUser = userData.find(
         (user) => user.email === userEmail && user.password === uPass
       );
 
       if (foundUser) {
-        // User with matching email and password found, you can now access foundUser
-        console.log("User found:", foundUser);
+        // User with matching email and password
+        // console.log("User found:", foundUser);
         window.location.href = "dashboard.html";
       } else {
         Swal.fire({
@@ -146,6 +153,44 @@ function signIn() {
           showConfirmButton: true,
         });
       }
+    } else {
+      Swal.fire({
+        icon: "error",
+        title:
+          "There are no user registered with this email. Please sign up first.",
+        showConfirmButton: true,
+      });
     }
+  }
+}
+
+function addToDo(event) {
+  event.preventDefault();
+  var toDo = document.getElementById("todo");
+
+  // Hide all error messages
+  var errorMessages = document.querySelectorAll(".text-danger");
+  errorMessages.forEach(function (error) {
+    error.style.display = "none";
+  });
+
+  toDo.style.borderColor = "#000";
+
+  // Validate toDo
+  if (!toDo.value) {
+    var toDoError = document.getElementById(toDo.getAttribute("data-error"));
+    toDoError.style.display = "block";
+    toDoError.textContent = "Please type a ToDo";
+    toDo.style.borderColor = "#ff0000";
+  } else {
+    let userId = userData[userData.length - 1].userId;
+    const toDoItem = {
+      userId: userId,
+      toDo: toDo.value,
+    };
+
+    toDoData.push(toDoItem);
+    localStorage.setItem("toDoData", JSON.stringify(toDoData));
+    toDo.value = "";
   }
 }
