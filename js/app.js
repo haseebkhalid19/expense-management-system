@@ -1,5 +1,4 @@
 let userData = JSON.parse(localStorage.getItem("userData")) || [];
-let toDoData = JSON.parse(localStorage.getItem("toDoData")) || [];
 
 const change = document.getElementById("change");
 const changeS = document.getElementById("change-s");
@@ -86,7 +85,8 @@ function signUp(event) {
     userData.push(newUser);
     localStorage.setItem("userData", JSON.stringify(userData));
 
-    window.location.href = "dashboard.html";
+    // Redirect to dashboard with the username
+    window.location.href = 'dashboard.html';
   }
 }
 
@@ -143,9 +143,8 @@ function signIn(event) {
       );
 
       if (foundUser) {
-        // User with matching email and password
-        // console.log("User found:", foundUser);
-        window.location.href = "dashboard.html";
+        localStorage.setItem("currentUser",JSON.stringify(foundUser));
+        window.location.href = 'dashboard.html';
       } else {
         Swal.fire({
           icon: "error",
@@ -164,33 +163,3 @@ function signIn(event) {
   }
 }
 
-function addToDo(event) {
-  event.preventDefault();
-  var toDo = document.getElementById("todo");
-
-  // Hide all error messages
-  var errorMessages = document.querySelectorAll(".text-danger");
-  errorMessages.forEach(function (error) {
-    error.style.display = "none";
-  });
-
-  toDo.style.borderColor = "#000";
-
-  // Validate toDo
-  if (!toDo.value) {
-    var toDoError = document.getElementById(toDo.getAttribute("data-error"));
-    toDoError.style.display = "block";
-    toDoError.textContent = "Please type a ToDo";
-    toDo.style.borderColor = "#ff0000";
-  } else {
-    let userId = userData[userData.length - 1].userId;
-    const toDoItem = {
-      userId: userId,
-      toDo: toDo.value,
-    };
-
-    toDoData.push(toDoItem);
-    localStorage.setItem("toDoData", JSON.stringify(toDoData));
-    toDo.value = "";
-  }
-}
