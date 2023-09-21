@@ -12,7 +12,7 @@ change.addEventListener("click", () => {
 
 changeS.addEventListener("click", () => {
   showSingIn.classList.toggle("d-none");
-  showSingUp.classList.toggle("d-none");
+  showSingUp.classList.toggle("d-none"); 
 });
 
 function signUp(event) {

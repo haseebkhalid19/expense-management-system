@@ -39,14 +39,48 @@ function addToDo(event) {
   displayTodo();
 }
 
+displayTodo();
+
 function displayTodo() {
   var todoList = toDoData.filter((data) => data.userId === user.userId);
-  
-  if (todoList) {
-    console.log(todoList);
-    todoItem.textContent += `<li>
-                              ${JSON.parse(todoList)}
-                              <img src="img/delete.png" alt="image" />
-                            </li>`;
+  todoItem.innerHTML = ""; // Clear the existing list before updating it
+
+  if (todoList.length > 0) {
+    todoList.forEach((item) => {
+      // Create a new list item element
+      const li = document.createElement("li");
+
+      // Set the content of the list item
+      li.textContent = item.toDo;
+
+      const deleteImage = document.createElement("img");
+      deleteImage.src = "img/delete.png";
+      deleteImage.alt = "Delete";
+
+      deleteImage.addEventListener("click", () => {
+        deleteToDo(item); 
+      });
+
+      li.appendChild(deleteImage);
+
+      todoItem.appendChild(li);
+    });
   }
+}
+
+function deleteToDo(itemToDelete) {
+  const indexToDelete = toDoData.findIndex((item) => item === itemToDelete);
+
+  if (indexToDelete !== -1) {
+    toDoData.splice(indexToDelete, 1);
+
+    localStorage.setItem("toDoData", JSON.stringify(toDoData));
+
+    displayTodo();
+  }
+}
+
+function logOut() {
+  localStorage.removeItem("currentUser");
+  window.location.href = "index.html";
 }

@@ -2,22 +2,35 @@
   margin: 0;
   padding: 0;
 }
+
 body {
   background-color: #e5e5e5;
 }
+
+a {
+  color: #8A4C7D;
+}
+
+a:hover {
+  color: #8A4C7D;
+}
+
 @font-face {
   font-family: mySansHeavy;
   src: url(../fonts/FUTURAB.TTF);
 }
+
 @font-face {
   font-family: mySansMedium;
   src: url(../fonts/FUTURAM.TTF);
 }
+
 .screens-wrapper {
   display: flex;
   align-items: center;
   justify-content: center;
 }
+
 #singUp-container {
   width: 375px;
   height: 812px;
@@ -37,6 +50,7 @@ body {
   background-color: #ffffff;
   border-radius: 40px;
 }
+
 #signIn a {
   color: #000;
   font-family: mySansHeavy, sans-serif;
@@ -50,17 +64,20 @@ body {
   top: 80px;
   text-decoration: none;
 }
+
 .ellipse-wrapper {
   display: flex;
   flex-direction: column;
   align-items: end;
   justify-content: space-between;
 }
+
 .ellipse-1 img {
   border-radius: 40px 40px 0 0;
   position: relative;
   z-index: 1;
 }
+
 .ellipse-4 img {
   border-radius: 40px 40px 0 0;
   position: relative;
@@ -68,10 +85,12 @@ body {
   left: -140px;
   z-index: 1;
 }
+
 .ellipse-5 img {
   position: relative;
   top: -373px;
 }
+
 .create h1 {
   color: #fff;
   font-family: mySansHeavy, sans-serif;
@@ -89,29 +108,35 @@ h1 {
   font-weight: 900;
   line-height: normal;
 }
+
 .create {
   position: relative;
   left: -160px;
   top: -205px;
   z-index: 1;
 }
+
 .welcome {
   position: relative;
   left: -140px;
   top: -705px;
   z-index: 1;
 }
+
 .ellipse-2 img {
   position: relative;
   top: -99px;
   border-radius: 0 0 40px 0;
 }
+
 .form_container {
   margin-top: -520px;
 }
+
 .form-container {
   margin-top: -89px;
 }
+
 .input input {
   width: 303px;
   height: 60px;
@@ -128,13 +153,16 @@ h1 {
   line-height: normal;
   text-indent: 20px;
 }
+
 .value {
   background: #0000001a;
   color: #3c3c3c !important;
 }
+
 .value::placeholder {
   color: #3c3c3c;
 }
+
 ::placeholder {
   color: #fff;
   font-family: mySansMedium, sans-serif;
@@ -143,6 +171,7 @@ h1 {
   font-weight: 400;
   line-height: normal;
 }
+
 .text {
   color: #000;
   font-family: mySansHeavy, sans-serif;
@@ -153,11 +182,13 @@ h1 {
   margin-left: 40px;
   margin-top: 25px;
 }
+
 .btnSingUp svg {
   width: 24px;
   height: 16px;
   flex-shrink: 0;
 }
+
 #arrow-back svg {
   width: 10px;
   height: 20.014px;
@@ -168,9 +199,11 @@ h1 {
   left: -320px;
   cursor: pointer;
 }
+
 .arrow-back svg {
   top: -750px !important;
 }
+
 button {
   width: 64px;
   height: 64px;
@@ -183,6 +216,7 @@ button {
   color: #fff;
   font-family: mySansHeavy, sans-serif;
 }
+
 .flex {
   position: relative;
   z-index: 1;
@@ -193,6 +227,7 @@ button {
   justify-content: space-around;
   left: 5px !important;
 }
+
 .form-last {
   display: flex;
   align-items: center;
@@ -200,6 +235,7 @@ button {
   position: relative;
   z-index: 1;
 }
+
 .flex a {
   color: #000;
   font-family: mySansHeavy, sans-serif;
@@ -211,6 +247,7 @@ button {
   position: relative;
   z-index: 2;
 }
+
 .line {
   width: 78px;
   height: 9px;
@@ -220,6 +257,7 @@ button {
   top: 72px;
   left: 260px;
 }
+
 .line-s {
   width: 78px;
   height: 9px;
@@ -229,6 +267,7 @@ button {
   top: -8px;
   left: -7px;
 }
+
 .line-forgot {
   width: 159px;
   height: 9px;
@@ -238,6 +277,7 @@ button {
   top: -8px;
   left: -10px;
 }
+
 .text-danger {
   color: #ff0000;
   font-family: mySansMedium, sans-serif;
@@ -254,6 +294,7 @@ header {
   justify-content: center;
   flex-direction: column;
 }
+
 .user-avatar {
   width: 120px;
   height: 120px;
@@ -266,6 +307,7 @@ header {
   position: relative;
   z-index: 1;
 }
+
 .circle {
   height: 250px;
   width: 250px;
@@ -275,6 +317,7 @@ header {
   left: 550px;
   top: 120px;
 }
+
 #welcome {
   position: relative;
   z-index: 1;
@@ -287,24 +330,29 @@ header {
   align-items: center;
   justify-content: center;
 }
+
 #to-do .input input {
   width: 600px;
+  margin-left: 170px;
 }
+
 #todo-wrapper {
   display: flex;
   align-items: center;
   justify-content: center;
 }
+
 .add-todo {
-  position: absolute;
-  left: 1005px;
-  top: 353px;
+  position: relative;
+  left: -104px;
   border-radius: 0 20px 20px 0;
 }
+
 label {
   font-family: mySansMedium, sans-serif;
   font-size: 20px;
 }
+
 #todo-item {
   padding: 10px;
   width: 600px;
@@ -318,14 +366,36 @@ label {
   line-height: normal;
   text-indent: 20px;
 }
+
 ul li img {
   cursor: pointer;
   display: block;
 }
+
 ul li {
   list-style: none;
   display: flex;
   align-items: center;
   justify-content: space-between;
   padding: 5px 0;
+}
+
+footer {
+  padding: 20px;
+  background-color: #fcfcfc;
+  position: fixed;
+  width: 100%;
+  text-align: center;
+  bottom: 0;
+  font-family: mySansHeavy;
+}
+
+#log-out{
+  position: absolute;
+  border-radius: 10px;
+  background: #fcfcfc;
+  color: #000;
+  right: 0;
+  width: 80px;
+  height: 50px;
 }
