@@ -43,22 +43,34 @@ displayTodo();
 
 function displayTodo() {
   var todoList = toDoData.filter((data) => data.userId === user.userId);
-  todoItem.innerHTML = ""; // Clear the existing list before updating it
+  todoItem.innerHTML = "";
 
   if (todoList.length > 0) {
     todoList.forEach((item) => {
-      // Create a new list item element
-      const li = document.createElement("li");
 
-      // Set the content of the list item
+      const li = document.createElement("li");
+      const checkbox = document.createElement("input");
+      checkbox.type = "checkbox";
+      checkbox.classList.add("chekcbox");
+
+      checkbox.addEventListener("change", () => {
+        if (checkbox.checked) {
+          li.classList.add("completed");
+        } else {
+          li.classList.remove("completed");
+        }
+      });
+
+      todoItem.appendChild(checkbox);
       li.textContent = item.toDo;
 
       const deleteImage = document.createElement("img");
       deleteImage.src = "img/delete.png";
       deleteImage.alt = "Delete";
 
+
       deleteImage.addEventListener("click", () => {
-        deleteToDo(item); 
+        deleteToDo(item);
       });
 
       li.appendChild(deleteImage);
@@ -70,15 +82,42 @@ function displayTodo() {
 
 function deleteToDo(itemToDelete) {
   const indexToDelete = toDoData.findIndex((item) => item === itemToDelete);
+  Swal.fire({
+    title: 'Are you sure?',
+    text: "You won't be able to revert this!",
+    icon: 'warning',
+    showCancelButton: true,
+    confirmButtonColor: '#3085d6',
+    cancelButtonColor: '#d33',
+    cancelButtonText: 'No',
+    confirmButtonText: 'Yes'
+  }).then((result) => {
+    if (result.isConfirmed) {
+      Swal.fire(
+        'Deleted!',
+        'Your file has been deleted.',
+        'success'
+      )
+      if (indexToDelete !== -1) {
+        toDoData.splice(indexToDelete, 1);
 
-  if (indexToDelete !== -1) {
-    toDoData.splice(indexToDelete, 1);
+        localStorage.setItem("toDoData", JSON.stringify(toDoData));
 
-    localStorage.setItem("toDoData", JSON.stringify(toDoData));
-
-    displayTodo();
-  }
+        displayTodo();
+      }
+    }
+  })
 }
+
+
+// function DeleteAll() {
+//   let filteredTodos = todos.filter((todo) => todo.uid !== user.uid)
+//   console.log(filteredTodos)
+//   localStorage.setItem("Todo", JSON.stringify(filteredTodos))
+//   setTimeout(function () {
+//       location.reload()
+//   }, 1500);
+// }
 
 function logOut() {
   localStorage.removeItem("currentUser");

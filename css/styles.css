@@ -365,6 +365,7 @@ label {
   font-weight: 400;
   line-height: normal;
   text-indent: 20px;
+  position: relative;
 }
 
 ul li img {
@@ -378,6 +379,23 @@ ul li {
   align-items: center;
   justify-content: space-between;
   padding: 5px 0;
+  position: relative;
+}
+
+.chekcbox {
+  position: absolute;
+  left: 12px;
+  margin-top: 10px;
+  z-index: 1;
+  width: 15px;
+  height: 15px;
+  border: none;
+  background-color: #fff;
+}
+
+.completed {
+  text-decoration: line-through;
+  color: #ff0000;
 }
 
 footer {
@@ -390,7 +408,7 @@ footer {
   font-family: mySansHeavy;
 }
 
-#log-out{
+#log-out {
   position: absolute;
   border-radius: 10px;
   background: #fcfcfc;
