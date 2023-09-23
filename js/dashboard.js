@@ -11,7 +11,6 @@ if (!currentUser) {
 // Display the welcome message with the username
 document.getElementById("welcome").textContent += user.username;
 
-
 function addToDo(event) {
   event.preventDefault();
   var toDo = document.getElementById("todo");
@@ -139,7 +138,9 @@ function deleted() {
       Swal.fire("Deleted!", "Your todos has been deleted.", "success");
       var todoList = toDoData.filter((data) => data.userId !== user.userId);
       localStorage.setItem("toDoData", JSON.stringify(todoList));
-      todoItem.textContent = "";
+      setTimeout(function () {
+        location.reload()
+    }, 1000);
     }
   });
 }
