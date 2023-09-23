@@ -1,11 +1,16 @@
-let userData = JSON.parse(localStorage.getItem("userData")) || [];
+const userData = JSON.parse(localStorage.getItem("userData")) || [];
 const toDoData = JSON.parse(localStorage.getItem("toDoData")) || [];
-let currentUser = localStorage.getItem("currentUser");
+const currentUser = localStorage.getItem("currentUser");
 const todoItem = document.getElementById("todo-item");
-user = JSON.parse(currentUser);
+const user = JSON.parse(currentUser);
+
+if (!currentUser) {
+  window.location.href = "index.html";
+}
 
 // Display the welcome message with the username
 document.getElementById("welcome").textContent += user.username;
+
 
 function addToDo(event) {
   event.preventDefault();
@@ -30,6 +35,7 @@ function addToDo(event) {
     const toDoItem = {
       userId: userId,
       toDo: toDo.value,
+      addedOn: Date(Date.now()).toString(),
     };
 
     toDoData.push(toDoItem);
@@ -43,11 +49,10 @@ displayTodo();
 
 function displayTodo() {
   var todoList = toDoData.filter((data) => data.userId === user.userId);
-  todoItem.innerHTML = "";
+  todoItem.textContent = "";
 
   if (todoList.length > 0) {
     todoList.forEach((item) => {
-
       const li = document.createElement("li");
       const checkbox = document.createElement("input");
       checkbox.type = "checkbox";
@@ -64,10 +69,14 @@ function displayTodo() {
       todoItem.appendChild(checkbox);
       li.textContent = item.toDo;
 
+      const span = document.createElement("span");
+      let date = new Date(item.addedOn);
+      span.classList.add("date");
+      span.textContent = date.toLocaleString();
+
       const deleteImage = document.createElement("img");
       deleteImage.src = "img/delete.png";
       deleteImage.alt = "Delete";
-
 
       deleteImage.addEventListener("click", () => {
         deleteToDo(item);
@@ -76,28 +85,34 @@ function displayTodo() {
       li.appendChild(deleteImage);
 
       todoItem.appendChild(li);
+      todoItem.appendChild(span);
     });
+    if (todoItem) {
+      const deleteAll = document.createElement("button");
+      deleteAll.textContent = "Delete All";
+      deleteAll.classList.add("btn-danger");
+      todoItem.appendChild(deleteAll);
+      deleteAll.addEventListener("click", () => {
+        deleted();
+      });
+    }
   }
 }
 
 function deleteToDo(itemToDelete) {
   const indexToDelete = toDoData.findIndex((item) => item === itemToDelete);
   Swal.fire({
-    title: 'Are you sure?',
+    title: "Are you sure?",
     text: "You won't be able to revert this!",
-    icon: 'warning',
+    icon: "warning",
     showCancelButton: true,
-    confirmButtonColor: '#3085d6',
-    cancelButtonColor: '#d33',
-    cancelButtonText: 'No',
-    confirmButtonText: 'Yes'
+    confirmButtonColor: "#3085d6",
+    cancelButtonColor: "#d33",
+    cancelButtonText: "No",
+    confirmButtonText: "Yes",
   }).then((result) => {
     if (result.isConfirmed) {
-      Swal.fire(
-        'Deleted!',
-        'Your file has been deleted.',
-        'success'
-      )
+      Swal.fire("Deleted!", "Your todo has been deleted.", "success");
       if (indexToDelete !== -1) {
         toDoData.splice(indexToDelete, 1);
 
@@ -106,18 +121,28 @@ function deleteToDo(itemToDelete) {
         displayTodo();
       }
     }
-  })
+  });
 }
 
-
-// function DeleteAll() {
-//   let filteredTodos = todos.filter((todo) => todo.uid !== user.uid)
-//   console.log(filteredTodos)
-//   localStorage.setItem("Todo", JSON.stringify(filteredTodos))
-//   setTimeout(function () {
-//       location.reload()
-//   }, 1500);
-// }
+function deleted() {
+  Swal.fire({
+    title: "Are you sure?",
+    text: "You won't be able to revert this!",
+    icon: "warning",
+    showCancelButton: true,
+    confirmButtonColor: "#3085d6",
+    cancelButtonColor: "#d33",
+    cancelButtonText: "No",
+    confirmButtonText: "Yes",
+  }).then((result) => {
+    if (result.isConfirmed) {
+      Swal.fire("Deleted!", "Your todos has been deleted.", "success");
+      var todoList = toDoData.filter((data) => data.userId !== user.userId);
+      localStorage.setItem("toDoData", JSON.stringify(todoList));
+      todoItem.textContent = "";
+    }
+  });
+}
 
 function logOut() {
   localStorage.removeItem("currentUser");

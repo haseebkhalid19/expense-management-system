@@ -84,6 +84,7 @@ function signUp(event) {
 
     userData.push(newUser);
     localStorage.setItem("userData", JSON.stringify(userData));
+    localStorage.setItem("currentUser", JSON.stringify(newUser));
 
     // Redirect to dashboard with the username
     window.location.href = 'dashboard.html';
