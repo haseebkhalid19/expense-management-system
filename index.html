@@ -3,14 +3,16 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="shortcut icon" href="img/favicon.ico" type="image/x-icon">
+    <link rel="shortcut icon" href="img/favicon.ico" type="image/x-icon" />
     <link rel="stylesheet" href="css/styles.css" />
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-    <script src="js/app.js" defer></script>
+    <script type="module" src="js/firebase.js" defer></script>
+    <script type="module" src="js/app.js" defer></script>
     <title>Login Or SignUp</title>
   </head>
   <body>
     <div class="screens-wrapper">
+      <!-- sing In  -->
       <div id="signIn-container">
         <div class="ellipse-wrapper">
           <div class="ellipse-1">
@@ -68,7 +70,7 @@
               </div>
               <div class="form-last">
                 <div class="text">Sign In</div>
-                <button class="btnSingUp" onclick="signIn(event)">
+                <button class="btnSingUp" id="login">
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
                     width="24"
@@ -89,7 +91,9 @@
                   <div class="line-s"></div>
                 </div>
                 <div>
-                  <a href="javascript:void(0);"> Forgot Password </a>
+                  <a href="javascript:void(0);" id="google-singIn"
+                    >SignIn with Google</a
+                  >
                   <div class="line-forgot"></div>
                 </div>
               </div>
@@ -97,6 +101,8 @@
           </div>
         </div>
       </div>
+
+      <!-- Singn Up  -->
       <div id="singUp-container" class="d-none">
         <div class="ellipse-wrapper">
           <div class="ellipse-1">
@@ -156,7 +162,7 @@
               <div class="text-danger" id="register-password-error"></div>
               <div class="form-last">
                 <div class="text">Sign Up</div>
-                <button class="btnSingUp" onclick="signUp(event)">
+                <button id="signup" class="btnSingUp">
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
                     width="24"

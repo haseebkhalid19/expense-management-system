@@ -6,11 +6,12 @@
     <link rel="shortcut icon" href="img/favicon.ico" type="image/x-icon" />
     <link rel="stylesheet" href="css/styles.css" />
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-    <script src="js/dashboard.js" defer></script>
+    <script type="module" src="js/firebase.js" defer></script>
+    <script type="module" src="js/dashboard.js" defer></script>
     <title>To Do App</title>
   </head>
   <body>
-    <button id="log-out" onclick="logOut()">Logo Out</button>
+    <button id="log-out">Logo Out</button>
     <header>
       <div class="circle"></div>
       <div class="user-avatar"></div>
@@ -28,7 +29,7 @@
             name="toDo"
             data-error="todo-error"
           />
-          <button class="add-todo" onclick="addToDo(event)">
+          <button id="addTodo" class="add-todo">
             <svg
               xmlns="http://www.w3.org/2000/svg"
               width="24"

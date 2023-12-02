@@ -1,4 +1,60 @@
-let userData = JSON.parse(localStorage.getItem("userData")) || [];
+// Import the functions you need from the SDKs you need
+import { initializeApp } from "https://www.gstatic.com/firebasejs/10.5.2/firebase-app.js";
+
+import {
+  getFirestore,
+  doc,
+  setDoc,
+} from "https://www.gstatic.com/firebasejs/10.5.2/firebase-firestore.js";
+
+import {
+  getAuth,
+  createUserWithEmailAndPassword,
+  signInWithEmailAndPassword,
+  signInWithPopup,
+  GoogleAuthProvider,
+} from "https://www.gstatic.com/firebasejs/10.5.2/firebase-auth.js";
+
+// Your web app's Firebase configuration
+const firebaseConfig = {
+  apiKey: "AIzaSyDcWHA0G_Xs6L-tmUyPtoEdPojzX61LA5E",
+  authDomain: "todoapp-977fb.firebaseapp.com",
+  projectId: "todoapp-977fb",
+  storageBucket: "todoapp-977fb.appspot.com",
+  messagingSenderId: "281864682046",
+  appId: "1:281864682046:web:209cfb98985e64a7686f6f",
+};
+
+// Initialize Firebase
+const app = initializeApp(firebaseConfig);
+const provider = new GoogleAuthProvider();
+const db = getFirestore(app);
+const auth = getAuth();
+
+var googelSignIn = document.getElementById("google-singIn");
+
+googelSignIn.addEventListener("click", () => {
+  signInWithPopup(auth, provider)
+    .then((result) => {
+      // This gives you a Google Access Token. You can use it to access the Google API.
+      const credential = GoogleAuthProvider.credentialFromResult(result);
+      const token = credential.accessToken;
+      // The signed-in user info.
+      const user = result.user;
+      // IdP data available using getAdditionalUserInfo(result)
+      // ...
+    })
+    .catch((error) => {
+      // Handle Errors here.
+      const errorCode = error.code;
+      const errorMessage = error.message;
+      // The email of the user's account used.
+      const email = error.customData.email;
+      // The AuthCredential type that was used.
+      const credential = GoogleAuthProvider.credentialFromError(error);
+      // ...
+    });
+});
 
 const change = document.getElementById("change");
 const changeS = document.getElementById("change-s");
@@ -12,14 +68,17 @@ change.addEventListener("click", () => {
 
 changeS.addEventListener("click", () => {
   showSingIn.classList.toggle("d-none");
-  showSingUp.classList.toggle("d-none"); 
+  showSingUp.classList.toggle("d-none");
 });
 
-function signUp(event) {
+var signup = document.getElementById("signup");
+
+signup.addEventListener("click", (event) => {
   event.preventDefault();
+
   var username = document.getElementById("username");
   var email = document.getElementById("email");
-  var pass = document.getElementById("password");
+  var password = document.getElementById("password");
 
   // Hide all error messages
   var errorMessages = document.querySelectorAll(".text-danger");
@@ -29,7 +88,7 @@ function signUp(event) {
 
   username.style.borderColor = "#000";
   email.style.borderColor = "#000";
-  pass.style.borderColor = "#000";
+  password.style.borderColor = "#000";
 
   // Validate username
   if (!username.value) {
@@ -59,7 +118,7 @@ function signUp(event) {
   }
 
   // Validate password
-  if (!pass.value) {
+  if (!password.value) {
     var registerPasswordError = document.getElementById(
       pass.getAttribute("data-error")
     );
@@ -69,30 +128,38 @@ function signUp(event) {
   }
 
   //sign up
-  if (username.value && email.value && pass.value) {
-    let lastUserId = 1000;
-    if (userData.length > 0) {
-      lastUserId = userData[userData.length - 1].userId;
-    }
-    let userId = lastUserId + 1;
-    const newUser = {
-      userId: userId,
-      username: username.value,
-      email: email.value,
-      password: pass.value,
-    };
+  if (username.value && email.value && password.value) {
+    var userName = document.getElementById("username").value;
+    var uEamil = document.getElementById("email").value;
+    var userPassword = document.getElementById("password").value;
 
-    userData.push(newUser);
-    localStorage.setItem("userData", JSON.stringify(userData));
-    localStorage.setItem("currentUser", JSON.stringify(newUser));
+    createUserWithEmailAndPassword(auth, uEamil, userPassword)
+      .then(async (userCredential) => {
+        // Signed up
+        const user = userCredential.user;
+        // Add a new document in collection "cities"
+        await setDoc(doc(db, "users", user.uid), {
+          username: userName,
+          email: uEamil,
+        });
+        alert("User Created");
+      })
+      .catch((error) => {
+        const errorCode = error.code;
+        const errorMessage = error.message;
+        alert(errorMessage);
+      });
 
     // Redirect to dashboard with the username
-    window.location.href = 'dashboard.html';
+    // window.location.href = "dashboard.html";
   }
-}
+});
 
-function signIn(event) {
+var login = document.getElementById("login");
+
+login.addEventListener("click", (event) => {
   event.preventDefault();
+
   var userEmail = document.getElementById("useremail");
   var uPass = document.getElementById("user-password");
 
@@ -133,34 +200,19 @@ function signIn(event) {
   }
 
   if (userEmail.value && uPass.value && userEmail.value.includes("@")) {
-    const userDataString = localStorage.getItem("userData");
-    if (userDataString) {
-      const userData = JSON.parse(userDataString);
-      const userEmail = document.getElementById("useremail").value;
-      const uPass = document.getElementById("user-password").value;
+    var email = document.getElementById("useremail").value;
+    var password = document.getElementById("user-password").value;
 
-      const foundUser = userData.find(
-        (user) => user.email === userEmail && user.password === uPass
-      );
-
-      if (foundUser) {
-        localStorage.setItem("currentUser",JSON.stringify(foundUser));
-        window.location.href = 'dashboard.html';
-      } else {
-        Swal.fire({
-          icon: "error",
-          title: "Wrong Credentials",
-          showConfirmButton: true,
-        });
-      }
-    } else {
-      Swal.fire({
-        icon: "error",
-        title:
-          "There are no user registered with this email. Please sign up first.",
-        showConfirmButton: true,
+    signInWithEmailAndPassword(auth, email, password)
+      .then((userCredential) => {
+        // Signed in
+        const user = userCredential.user;
+        window.location.href = "dashboard.html";
+      })
+      .catch((error) => {
+        const errorCode = error.code;
+        const errorMessage = error.message;
+        alert(errorMessage);
       });
-    }
   }
-}
-
+});
