@@ -83,7 +83,7 @@ onAuthStateChanged(auth, async (user) => {
         toDo: toDo.value,
         addedOn: Timestamp.fromDate(new Date()),
       };
-      await setDoc(doc(db, "toDo", user.uid), toDoItem);
+      await setDoc(doc(db, "toDo"), toDoItem);
       toDo.value = "";
     }
     setTimeout(function () {
