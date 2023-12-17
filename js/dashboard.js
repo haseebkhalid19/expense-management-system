@@ -1,36 +1,21 @@
-// Import the functions you need from the SDKs you need
-import { initializeApp } from "https://www.gstatic.com/firebasejs/10.5.2/firebase-app.js";
-
 import {
-  getFirestore,
-  collection,
-  doc,
-  setDoc,
-  getDoc,
+  auth,
+  serverTimestamp,
   deleteDoc,
-  Timestamp,
-} from "https://www.gstatic.com/firebasejs/10.5.2/firebase-firestore.js";
-
-import {
-  getAuth,
+  deleteField,
+  query,
+  where,
+  orderBy,
   onAuthStateChanged,
+  doc,
+  getDoc,
+  db,
+  setDoc,
   signOut,
-} from "https://www.gstatic.com/firebasejs/10.5.2/firebase-auth.js";
-
-// Your web app's Firebase configuration
-const firebaseConfig = {
-  apiKey: "AIzaSyDcWHA0G_Xs6L-tmUyPtoEdPojzX61LA5E",
-  authDomain: "todoapp-977fb.firebaseapp.com",
-  projectId: "todoapp-977fb",
-  storageBucket: "todoapp-977fb.appspot.com",
-  messagingSenderId: "281864682046",
-  appId: "1:281864682046:web:209cfb98985e64a7686f6f",
-};
-
-// Initialize Firebase
-const app = initializeApp(firebaseConfig);
-const db = getFirestore(app);
-const auth = getAuth();
+  addDoc,
+  collection,
+  getDocs,
+} from "./firebase.js";
 
 // const user = auth.currentUser;
 
@@ -43,6 +28,7 @@ onAuthStateChanged(auth, async (user) => {
 
     const todoArr = doc(db, "toDo", user.uid);
     var todoDoc = await getDoc(todoArr);
+    // console.log(todoDoc.data());
 
     // console.log("Document data:", docSnap.data());
     displayName.textContent += docSnap.data().username;
@@ -77,13 +63,12 @@ onAuthStateChanged(auth, async (user) => {
       toDoError.textContent = "Please type a ToDo";
       toDo.style.borderColor = "#ff0000";
     } else {
-      let userId = user.userId;
       const toDoItem = {
         userId: user.uid,
         toDo: toDo.value,
-        addedOn: Timestamp.fromDate(new Date()),
+        addedOn: serverTimestamp(),
       };
-      await setDoc(doc(db, "toDo"), toDoItem);
+      await addDoc(collection(db, "toDo"), toDoItem);
       toDo.value = "";
     }
     setTimeout(function () {
@@ -94,46 +79,52 @@ onAuthStateChanged(auth, async (user) => {
   displayTodo();
 
   async function displayTodo() {
-    var todoList = [];
-    todoList.push(todoDoc.data());
+    // var todoList = [];
+    // todoList.push(todoDoc.data());
+    // console.log(todoList)
+
     todoItem.textContent = "";
 
-    if (todoList.length > 0) {
-      todoList.forEach((item) => {
-        const li = document.createElement("li");
-        const checkbox = document.createElement("input");
-        checkbox.type = "checkbox";
-        checkbox.classList.add("chekcbox");
+    const q = query(collection(db, "toDo"), where("userId", "==", user.uid));
 
-        checkbox.addEventListener("change", () => {
-          if (checkbox.checked) {
-            li.classList.add("completed");
-          } else {
-            li.classList.remove("completed");
-          }
-        });
+    const querySnapshot = await getDocs(q);
+    querySnapshot.forEach((doc) => {
+      console.log(doc.id, " => ", doc.data().toDo);
 
-        todoItem.appendChild(checkbox);
-        li.textContent = item.toDo;
+      const li = document.createElement("li");
+      const checkbox = document.createElement("input");
+      checkbox.type = "checkbox";
+      checkbox.classList.add("chekcbox");
 
-        const span = document.createElement("span");
-        let date = new Date(item.addedOn);
-        span.classList.add("date");
-        span.textContent = date.toLocaleString();
-
-        const deleteImage = document.createElement("img");
-        deleteImage.src = "img/delete.png";
-        deleteImage.alt = "Delete";
-
-        deleteImage.addEventListener("click", () => {
-          deleteToDo();
-        });
-
-        li.appendChild(deleteImage);
-
-        todoItem.appendChild(li);
-        todoItem.appendChild(span);
+      checkbox.addEventListener("change", () => {
+        if (checkbox.checked) {
+          li.classList.add("completed");
+        } else {
+          li.classList.remove("completed");
+        }
       });
+
+      todoItem.appendChild(checkbox);
+      li.textContent = doc.data().toDo;
+
+      const span = document.createElement("span");
+      let date = new Date(doc.data().addedOn);
+      span.classList.add("date");
+      span.textContent = date.toLocaleString();
+
+      const deleteImage = document.createElement("img");
+      deleteImage.src = "img/delete.png";
+      deleteImage.alt = "Delete";
+
+      deleteImage.addEventListener("click", () => {
+        deleteToDo();
+      });
+
+      li.appendChild(deleteImage);
+
+      todoItem.appendChild(li);
+      todoItem.appendChild(span);
+
       if (todoItem) {
         const deleteAll = document.createElement("button");
         deleteAll.textContent = "Delete All";
@@ -143,7 +134,7 @@ onAuthStateChanged(auth, async (user) => {
           deleted();
         });
       }
-    }
+    });
   }
 
   function deleteToDo() {
